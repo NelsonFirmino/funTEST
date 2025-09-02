@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="dashboard_graph">
+
+      <div class="row x_title">
+        <div class="col-md-6">
+          <h3>Serventia</h3>
+        </div>
+        <div class="col-md-6 topofixo">
+        </div>
+      </div>
+      <p-growl [life]="5000" [(value)]="msgs"></p-growl>
+      <form #formUsuario="ngForm">
+        <div class="row topo30px">
+          <div class="col-md-6" [class.has-error]="!txCartorio.valid && txCartorio.touched"
+            [class.has-success]="txCartorio.valid && txCartorio.touched" maxlength="250">
+            <label for="txCartorio">Cartório:</label>
+            <input type="text" id="txCartorio" #txCartorio="ngModel" [(ngModel)]="serventia.txCartorio"
+              class="form-control" name="txCartorio" required />
+            <div *ngIf="!txCartorio.valid && txCartorio.touched">
+              O Cartório é obrigatório.
+            </div>
+          </div>
+        </div>
+        <div class="row topo15px">
+          <div class="col-md-6" [class.has-error]="!txResponsavel.valid && txResponsavel.touched"
+            [class.has-success]="txResponsavel.valid && txResponsavel.touched" maxlength="250">
+            <label for="txResponsavel">Responsável:</label>
+            <input type="text" id="txResponsavel" #txResponsavel="ngModel" [(ngModel)]="serventia.txResponsavel"
+              class="form-control" name="txResponsavel" required />
+            <div *ngIf="!txResponsavel.valid && txResponsavel.touched">
+              O Responsável é obrigatório.
+            </div>
+          </div>
+          <div class="col-md-2">
+            <label for="txCPF">CPF:(Com mascara)</label>
+            <input type="text" id="txCPF" class="form-control" #txCPF="ngModel" [(ngModel)]="serventia.txCPF"
+              name="txCPF" maxlength="14"  />         
+          </div>
+        </div>
+        <div class="row topo15px">
+          <div class="col-md-8" [class.has-error]="!txEndereco.valid && txEndereco.touched"
+            [class.has-success]="txEndereco.valid && txEndereco.touched" maxlength="300">
+            <label for="txEndereco">Endereço:</label>
+            <input type="text" id="txEndereco" #txEndereco="ngModel" [(ngModel)]="serventia.txEndereco"
+              class="form-control" name="txEndereco" required />
+            <div *ngIf="!txEndereco.valid && txEndereco.touched">
+              O Endereço é obrigatório.
+            </div>
+          </div>
+        </div>
+        <div class="row topo15px">
+          <div class="col-md-2">
+            <label for="txBairro">Bairro:</label>
+            <input type="text" id="txBairro" class="form-control" #txBairro="ngModel" [(ngModel)]="serventia.txBairro"
+              name="txBairro" maxlength="20" />
+          </div>
+          <div class="col-md-2">
+            <label for="txCEP">CEP:</label>
+            <input type="text" id="txCEP" class="form-control" #txCEP="ngModel" [(ngModel)]="serventia.txCEP"
+              name="txCEP" maxlength="9" minlength="9" required />
+          </div>
+          <div class="col-md-4">
+              <label for="txComarca">Comarca:</label>
+
+                <select id="comarca" #comarca="ngModel" [(ngModel)]="serventia.Comarca.Id" class="form-control" name="comarca">
+                    <option  value="0">Selecione a comarca</option>
+                    <option *ngFor="let itemComarca of camarcas" value="{{ itemComarca.Id }}">{{ itemComarca.txComarca }}</option>
+                </select> 
+            </div>
+
+        </div>
+        <div class="row topo15px">
+          <div class="col-md-6" [class.has-error]="!txEmail.valid && txEmail.touched"
+            [class.has-success]="txEmail.valid && txEmail.touched" maxlength="300">
+            <label for="txEmail">Email:</label>
+            <input type="text" id="txEmail" #txEmail="ngModel" [(ngModel)]="serventia.txEmail" class="form-control"
+              name="txEmail" required />
+            <div *ngIf="!txEmail.valid && txEmail.touched">
+              O Email é obrigatório.
+            </div>
+          </div>
+          <div class="col-md-2">
+            <label for="txTelefone">Telefone:</label>
+            <input type="text" id="txTelefone" class="form-control" #txCRM="ngModel" [(ngModel)]="serventia.txTelefone"
+              name="txTelefone" maxlength="20" required />
+          </div>
+        </div>
+
+        <div class="row topo30px">
+          <div class="col-md-3" left10px *ngIf="isPossuiId(serventia.Id)">
+            <button class="btn btn-primary" [disabled]="!formUsuario.valid" (click)="onAlterar()">Alterar</button>
+            <button type="reset" class="btn btn-primary" (click)="onLimpar()" id="btnLimpar">Cancelar</button>
+          </div>
+          <div class="col-md-4" *ngIf="!isPossuiId(serventia.Id)">
+            <button class="btn btn-primary" [disabled]="!formUsuario.valid" (click)="onIncluir()">Incluir</button>
+            <button class="btn btn-primary" [disabled]="txCartorio.value == '' && txResponsavel.value == '' "
+              (click)="onPesquisar()"><i class="fa fa-search"></i> Pesquisar</button>
+            <button type="reset" class="btn btn-primary" (click)="onLimpar()" id="btnLimpar">Cancelar</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="row topo15px">
+        <div class="col-md-8">
+          <h3>Listagem</h3>
+          <p-table [value]="listaTodos" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th widht="60%">Comarca - Cartório</th>
+                <th widht="20%">Responsavel</th>
+                <th widht="10%">Telefone</th>
+                <th widht="10%">Ações</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-columns="columns">
+              <tr>
+                <td widht="60%">{{ item.txComarca }} - {{ item.txCartorio }}</td>
+                <td widht="20%">{{ item.txResponsavel }}</td>
+                <td widht="10%">{{ item.txTelefone }}</td>
+                <td widht="10%">
+                  <a data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit fa-2x"
+                      (click)="onEditar(item)"></i></a> &nbsp;&nbsp;
+                  <a data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-trash fa-2x"
+                      (click)="onExcluir(item)"></i></a>&nbsp;&nbsp;
+                  <a  [routerLink]="['/administrativos/serventia-usuario']" 
+                      [queryParams]="{idServentia:item.Id}" >
+                      <i class="fa fa-address-card fa-2x" title="Usuário"></i></a>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="4">
+                  <p class="alert alert-info">Nenhum registro foi encontrado!</p>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+</div>
+<br />
+

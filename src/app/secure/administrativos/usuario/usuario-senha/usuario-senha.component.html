@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="dashboard_graph">
+
+      <div class="row x_title">
+        <div class="col-md-6">
+          <h3>Alterar Senha do Usuário</h3>
+        </div>
+        <div class="col-md-6 topofixo">
+        </div>
+      </div>
+      <p-growl [life]="5000" [(value)]="msgs"></p-growl>
+      <form #formServentiaUsuario="ngForm">
+        <div class="row topo30px">
+          <div class="col-md-8">
+            <label for="txNome">Usuário:</label>
+            <div *ngIf="isAdministrador()">
+              <p-dropdown [options]="ListaUsuarios" id="idUsuario" name="idUsuario" [(ngModel)]="usuario.Id"
+                [style]="{'width':'100%'}" style="padding: 0px 0px; border-radius: 0px; line-height: 24px; border: 0px;"
+                class="form-control" filter="true" [ngModelOptions]="{standalone: true}" (onChange)="onLer();">
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align:middle">{{item.label}}</span>
+                </ng-template>
+                <ng-template let-usuario pTemplate="item">
+                  <div class="ui-helper-clearfix" style="position: relative; height: 30px;">
+                    <div style="font-size:12px;float:left;margin-top:4px">{{usuario.label}}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
+            <div *ngIf="!isAdministrador()">
+                <input type="text" value="{{usuarioLogado.nome}}"  class="form-control" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row topo30px">
+          <div class="col-md-4" [class.has-error]="!txSenha.valid && txSenha.touched"
+            [class.has-success]="txSenha.valid && txSenha.touched">
+            <label for="txSenha">Senha:</label>
+            <input type="password" id="txSenha" #txSenha="ngModel" [(ngModel)]="usuario.txSenha" class="form-control"
+              name="txSenha" required maxlength="10" minlength="6" />
+            <div *ngIf="!txSenha.valid && txSenha.touched">
+              O Senha é obrigatório.
+            </div>
+          </div>
+          <div class="col-md-4" [class.has-error]="!txConfirma.valid && txConfirma.touched"
+            [class.has-success]="txConfirma.valid && txConfirma.touched && txSenha==txConfirma">
+            <label for="txConfirma">Senha:</label>
+            <input type="password" id="txConfirma" #txConfirma="ngModel" [(ngModel)]="usuario.txConfirma"
+              class="form-control" name="txConfirma" required maxlength="10" minlength="6" />
+            <div *ngIf="!txConfirma.valid && txConfirma.touched">
+              A Confirmação é obrigatória.
+            </div>
+          </div>
+        </div>
+        <div class="row topo30px">
+          <div class="col-md-3" left10px *ngIf="isPossuiId(usuario.Id)">
+            <button class="btn btn-primary" [disabled]="!formServentiaUsuario.valid"
+              (click)="onAlterar()">Alterar</button>
+            <button type="reset" class="btn btn-primary" (click)="onLimpar()" id="btnLimpar">Cancelar</button>
+          </div>
+          <div class="col-md-4" *ngIf="!isPossuiId(usuario.Id)">
+            <button type="reset" class="btn btn-primary" (click)="onLimpar()" id="btnLimpar">Cancelar</button>
+          </div>
+        </div>
+      </form>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+</div>
+<br />

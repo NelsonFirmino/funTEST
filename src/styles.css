@@ -1,0 +1,98 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+/* @import url("//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+@import url("//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css"); */
+@import "./assets/css/riliwan-rabo.css";
+@import "./assets/css/style.css";
+@import "./assets/css/form.css"; 
+@import "./assets/css/loading-bars.css"; 
+
+.bordacinza{
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.topo20{
+    margin-top: 20px;
+}
+
+.topo30{
+    margin-top: 30px;
+}
+
+.topo40{
+    margin-top: 40px;
+}
+
+.topo75{
+    margin-top: 75px;
+}
+
+.fonte17{
+    font-size: 17px;
+}
+
+.ui-float-label {
+    padding-left: 0px;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 10px;
+}
+
+.navbar-header {
+    background: #222;
+    color: #fff;
+}
+
+.bgbranco{
+    min-height: 800px; 
+    background: #FFF;
+}
+
+.rowtopo{
+    background: #222; 
+    margin-left: 0px; 
+    color: #FFF; 
+    min-height: 90px;
+}
+
+.buscar{
+    font-size: 30px; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin-bottom: 20px;
+}
+
+.ft16px{
+    font-size: 16px;
+}
+
+.h4dif{
+    font-size: 20px; 
+    margin-bottom: 5px;
+}
+
+.textbusca{
+    font-size: 16px; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media print {
+    .hidden-print {
+      display: none !important;
+    }
+  }
+
+.img-centro {
+    width:150px;
+    position:relative;
+    top:50%;
+    left:50%;
+    margin-left:-50px;    
+}  
+
+div.ui-growl {
+    left: 50%;
+    right: 0;
+    margin-left:-150px;
+ }

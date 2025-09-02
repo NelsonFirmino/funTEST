@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="dashboard_graph">
+
+      <div class="row x_title">
+        <div class="col-md-6">
+          <h3>Serventia X Usuário</h3>
+        </div>
+        <div class="col-md-6 topofixo">
+        </div>
+      </div>
+      <p-growl [life]="5000" [(value)]="msgs"></p-growl>
+      <form #formServentiaUsuario="ngForm">
+        <div class="row topo30px">
+          <div class="col-md-8">
+            <label for="txServentia">Serventia:</label>
+            <p-dropdown [options]="ListaServentias" id="idServentia" name="idServentia"
+              [(ngModel)]="serventiaUsuario.Serventia.Id" [style]="{'width':'100%'}"
+              style="padding: 0px 0px; border-radius: 0px; line-height: 24px; border: 0px;" class="form-control"
+              filter="true" [ngModelOptions]="{standalone: true}">
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align:middle">{{item.label}}</span>
+              </ng-template>
+              <ng-template let-serventia pTemplate="item">
+                <div class="ui-helper-clearfix" style="position: relative; height: 30px;">
+                  <div style="font-size:12px;float:left;margin-top:4px">{{serventia.label}}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+        <div class="row topo30px">
+          <div class="col-md-8">
+            <label for="txNome">Usuário:</label>
+            <p-dropdown [options]="ListaUsuarios" id="idUsuario" name="idUsuario"
+              [(ngModel)]="serventiaUsuario.Usuario.Id" [style]="{'width':'100%'}"
+              style="padding: 0px 0px; border-radius: 0px; line-height: 24px; border: 0px;" class="form-control"
+              filter="true" [ngModelOptions]="{standalone: true}">
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align:middle">{{item.label}}</span>
+              </ng-template>
+              <ng-template let-usuario pTemplate="item">
+                <div class="ui-helper-clearfix" style="position: relative; height: 30px;">
+                  <div style="font-size:12px;float:left;margin-top:4px">{{usuario.label}}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+        <div class="row topo30px">
+          <div class="col-md-3" left10px *ngIf="isPossuiId(serventiaUsuario.Id)">
+            <button class="btn btn-primary" [disabled]="!formServentiaUsuario.valid"
+              (click)="onAlterar()">Alterar</button>
+            <button type="reset" class="btn btn-primary" (click)="onLimpar()" id="btnLimpar">Cancelar</button>
+          </div>
+          <div class="col-md-4" *ngIf="!isPossuiId(serventiaUsuario.Id)">
+            <button class="btn btn-primary" [disabled]="!formServentiaUsuario.valid"
+              (click)="onIncluir()">Incluir</button>
+            <button class="btn btn-primary" (click)="onPesquisar()"><i class="fa fa-search"></i> Pesquisar</button>
+            <button type="reset" class="btn btn-primary" (click)="onLimpar()" id="btnLimpar">Cancelar</button>
+          </div>
+        </div>
+      </form>
+      <div class="row topo15px">
+        <div class="col-md-8">
+          <h3>Listagem</h3>
+
+          <p-table [value]="listaTodos" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th widht="10%">Comarca</th>
+                <th widht="20%">Serventia</th>
+                <th widht="60%">Nome</th>
+                <th widht="10%">Ações</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-columns="columns">
+              <tr>
+                <td widht="10%">{{ item.Serventia.Comarca.txComarca }}</td>
+                <td widht="20%">{{ item.Serventia.txCartorio }}</td>
+                <td widht="60%">{{ item.Usuario.txNome }}</td>
+                <td widht="10%">
+                  <a data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit fa-2x"
+                      (click)="onEditar(item)"></i></a>
+                  <a data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-trash fa-2x"
+                        (click)="onExcluir(item)"></i></a>
+                </td>
+              </tr>
+
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="4">
+                  <p class="alert alert-info">Nenhum registro foi encontrado!</p>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+        </div>
+      </div>
+
+
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+</div>
+<br />

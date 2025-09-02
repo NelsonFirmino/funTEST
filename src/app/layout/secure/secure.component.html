@@ -1,0 +1,174 @@
+<body class="nav-md">
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view" style="overflow: hidden; outline: none; cursor: -webkit-grab;" tabindex="5000">
+
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="index.html" class="site_title" style="height: 80px; margin-bottom: 10px; margin-top: 10px;">
+              <img src="assets/img/JVRISBranca.png" width="200" alt="DPSE">
+            </a>
+          </div>
+          <div class="clearfix"></div>
+
+          <br />
+
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+            <div class="menu_section" *ngIf="isPerfil('Cartorio')">
+              <h3>&nbsp;</h3>
+              <ul class="nav side-menu">
+                <li>
+                  <a [routerLink]="['/dashboard']">
+                    <i class="fa fa-desktop"></i> Dashboard </a>
+                </li>
+                <li class="vn">
+                  <a>
+                    <i class="fa fa-list"></i> Declarações (DPSE)
+                    <span class="fa fa-chevron-down"></span>
+                  </a>
+                  <ul class="nav child_menu">
+                    <li>
+                      <a [routerLink]="['/declaracoes/nova']">Criar Nova Declaração</a>
+                    </li>
+                    <li>
+                      <a [routerLink]="['/declaracoes']">Visualizar Declarações</a>
+                    </li>
+                    
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <div class="menu_section" *ngIf="isPerfil('Administrador')">
+              <h3>&nbsp;</h3>
+              <ul class="nav side-menu">
+                <li>
+                  <a [routerLink]="['/dashboard']">
+                    <i class="fa fa-desktop"></i> Dashboard </a>
+                </li>
+                <li class="vn">
+                  <a>
+                    <i class="fa fa-list"></i> Declarações (DPSE)
+                    <span class="fa fa-chevron-down"></span>
+                  </a>
+                  <ul class="nav child_menu">
+                    <li>
+                      <a [routerLink]="['/declaracoes/nova']">Criar Nova Declaração</a>
+                    </li>
+                    <li>
+                      <a [routerLink]="['/declaracoes']">Visualizar Declarações</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="vn">
+                    <a>
+                      <i class="fa fa-list"></i> Administrativos
+                      <span class="fa fa-chevron-down"></span>
+                    </a>
+                    <ul class="nav child_menu">
+                    
+                      <li><a [routerLink]="['/administrativos/serventia']">Serventia</a></li>
+                     
+                      <li><a [routerLink]="['/administrativos']">Listar de Serventias</a></li>
+                      <li>
+                        <a [routerLink]="['/relatorios/declarado']">Relatório Declaração Anual</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['/relatorios/extrato']">Relatório Arrecadação Anual</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['/relatorios/recolhimento']">Relatório Valor Recolhido</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['/relatorios/atrasado']">Relatório Valor em Atraso</a>
+                      </li>
+                      <li>
+                          <a [routerLink]="['/relatorios/inadimplente']">Relatório de Inadimplentes</a>
+                        </li>
+                        <li>
+                          <a [routerLink]="['/relatorios/historico']">Relatório Histórico</a>
+                        </li>
+                      <li>
+                        <a [routerLink]="['/administrativos/usuario']">Usuário</a>
+                      </li>
+                      <li>
+                          <a [routerLink]="['/administrativos/usuario/usuario-senha']">Alterar Senha</a>
+                        </li>
+                     
+                    </ul>
+                  </li>
+  
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="top_nav" style="text-align: right;"  >
+
+        <div class="nav_menu">
+          <nav class="" role="navigation">
+            <div class="nav toggle">
+              <a id="menu_toggle">
+                <i class="fa fa-bars"></i>
+              </a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <img src="assets/img/user.png" alt="">{{usuario.nome}}
+                  <span class=" fa fa-angle-down"></span>
+                </a>
+                <span style="padding-right: 5px;">
+                  <strong>Comarca - Serventia</strong>&nbsp;{{cartorioSelecionado ? cartorioSelecionado.txCartorio : ''}}
+                  <!-- &nbsp;da comarca de&nbsp;{{cartorioSelecionado ? cartorioSelecionado.txComarca : ''}} -->
+                  <p-button (onClick)="onTrocarServentia()" *ngIf="multiplosCartorios" icon="fa fa-fw fa-refresh" label="Selecionar"></p-button>
+                </span>
+                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                  <li>
+                      <a [routerLink]="['/administrativos/usuario/usuario-senha']">
+                      <i class="fa fa-key pull-right"></i> Alterar Senha</a>
+                  </li>
+                  <li>
+                    <a href="#" (click)="onLogout()">
+                      <i class="fa fa-sign-out pull-right"></i> Sair</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+
+      <div id="divLateral" class="right_col" role="main">
+        <router-outlet></router-outlet>        
+        <!-- <i style="position: absolute; bottom:0">v1.0.2</i> -->
+      </div>      
+
+      <div class="content-section implementation">
+        <p-dialog header="" [(visible)]="exibirMinhasServentias" modal="modal" [responsive]="true" [width]="500" [minWidth]="500" [minY]="70">
+          <p-header>
+            SELECIONE UMA SERVENTIA
+          </p-header>
+          <div style="height: 150px;">
+            <span>Selecione aqui a servetia que você deseja fazer a Declaração de Procedimentos e Serviços Efetuados (DPSE).</span>
+            <br />
+            <p>
+              <p-dropdown [options]="cartorios" (onChange)="onSelecionarCartorio()" [(ngModel)]="cartorioSelecionado" [style]="{'width':'450px'}" placeholder="Selecione uma Serventia"
+                optionLabel="txCartorio" [showClear]="true"></p-dropdown>
+            </p>
+          </div>
+          <p-footer>
+            <button type="button" class="ui-button-success" pButton icon="fa-check" (click)="exibirMinhasServentias=false" label="OK"></button>
+            <button type="button" class="ui-button-danger" pButton icon="fa-close" (click)="exibirMinhasServentias=false" label="Fechar"></button>
+          </p-footer>
+        </p-dialog>
+
+      </div>      
+    </div>    
+  </div>
+  
+</body>

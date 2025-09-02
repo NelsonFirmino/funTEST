@@ -1,0 +1,80 @@
+<p-growl [life]="8000" [(value)]="msgs"></p-growl>
+
+<h1 class="bordacinza topo40"></h1>
+<br />
+<h2 class="text-center">Confirmação da quantidade de serviços realizados - <b>Período de {{datainicial | date:'dd-MM-yyyy'}} até {{datafinal | date:'dd-MM-yyyy'}}</b></h2>
+<!-- <h2 class="text-center">Confirmação da quantidade de serviços realizados - <b>Período de {{datainicial}} até {{datafinal}}</b></h2> -->
+<br />
+<form [formGroup]="formConfirmarServicos" (ngSubmit)="onSalvar()">
+
+  <input type="hidden" name="validar" value="1" />
+
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+    <div class="ui-grid-row">
+
+      <div class='col-md-12'>
+
+        <table class="table table-striped">
+
+          <tbody>
+
+            <tr>
+              <td scope="col" style="width: 4%;">
+                <strong>#</strong>
+              </td>
+              <td scope="col">
+                <strong>DESCRIÇÃO</strong>
+              </td>
+              <td scope="col" class="text-center" style="width: 10%;">
+                <strong>QUANT.</strong>
+              </td>
+              <td scope="col" class="text-right" style="width: 10%;">
+                <strong>VAL. TOTAL</strong>
+              </td>
+            </tr>
+            <tr *ngFor="let servico of _servicosView">
+              <td scope="row">{{ servico.Contador }}</td>
+              <td>{{ servico.Grupo }} - {{servico.Discriminacao}}</td>
+              <td class="text-center">{{ servico.Quantidade }}</td>
+              <td class="text-right">{{ servico.Valor | currency: 'R$' }}</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="fonte17">
+                <strong>TOTAL</strong>
+              </td>
+              <td class="text-right fonte17">
+                <strong>{{ _totalView | currency: 'R$' }}</strong>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+
+    <div class="ui-grid-row topo40">
+      <div class="ui-grid-col-4">
+      </div>
+      <div class="ui-grid-col-2 text-right">
+        <button pButton type="button" icon="fa-arrow-left" label="Avançar" class="ui-button-danger" label="Voltar" (click)="onVoltar()"></button>
+      </div>
+      <div class="ui-grid-col-1">
+      </div>
+      <div class="ui-grid-col-2 text-right">        
+        <button type="button" (click)="onConfirmar()" pButton icon="fa-check"  class="ui-button-success btn-lg" label="Finalizar declaração e emitir guia"></button>
+      </div>
+    </div>
+
+  </div>
+  <p-confirmDialog header="Confirmação" icon="fa fa-question-circle" width="425" #cd>
+      <p-footer>
+          <button type="button" pButton class="ui-button-danger" icon="fa-close" label="Não" (click)="cd.reject()"></button>
+          <button type="button" pButton class="ui-button-success" icon="fa-check" label="Sim" (click)="cd.accept()"></button>
+      </p-footer>
+  </p-confirmDialog>
+  
+
+</form>

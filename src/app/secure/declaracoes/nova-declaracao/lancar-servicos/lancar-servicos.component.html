@@ -1,0 +1,246 @@
+<h1 class="bordacinza topo40"></h1>
+<br />
+<!-- <h2 class="text-center">Quantidade de serviços realizados - <b>Período de {{datainicial}} até {{datafinal}}</b></h2> -->
+<h2 class="text-center">Quantidade de serviços realizados - <b>Período de {{datainicial | date:'dd-MM-yyyy'}} até {{datafinal | date:'dd-MM-yyyy'}}</b></h2>
+<br />
+
+<form [formGroup]="formLancarServicos" (ngSubmit)="onAvancar()">
+
+  <input type="hidden" name="validar" value="" />
+
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+
+    <div class="form-horizontal">
+
+      <div class="tab-pane fade in active">
+
+        <div class="ui-grid-row">
+
+          <div class='col-md-8  hidden-print'>
+
+            <div class="form-group">
+
+              <p-panel header="Selecione nas tabelas abaixo o serviço e informe a quantidade para calcular o valor da taxa devida ao Fundo de Aperfeiçoamento Funcional e Aparelhamento Administrativo da Procuradoria-Geral do Estado (FUNAF)."
+                align="left">
+                <br/>
+                <p-accordion align="left">
+
+                  <p-accordionTab header="TABELA I - PROTESTO DE TÍTULOS">
+                    <p-dataTable [value]="_allTables._table01" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                  </p-accordionTab>
+
+                  <p-accordionTab header="TABELA II - REGISTRO CIVIL DE PESSOAS NATURAIS">
+                    <p-dataTable [value]="_allTables._table02" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                  </p-accordionTab>
+
+                  <p-accordionTab header="TABELA III - REGISTRO CIVIL DAS PESSOAS JURÍDICAS">
+                    <p-dataTable [value]="_allTables._table03" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                  </p-accordionTab>
+
+                  <p-accordionTab header="TABELA IV - TÍTULOS E DOCUMENTOS">
+                    <p>Registro integral e protocolo de contratos, Títulos ou documentos, microfilmes, sobre o valor declarado</p>
+                    <p-dataTable [value]="_allTables._table04" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                  </p-accordionTab>
+
+                  <p-accordionTab header="TABELA V - REGISTRO DE IMÓVEIS">
+                    <h5 align="center">A – MATRÍCULA</h5>
+                    <p-dataTable [value]="_allTables._table05A" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <h5 align="center">B – REGISTRO NO LIVRO “2-REGISTRO GERAL”, INCLUSIVE PROTOCOLO E PRENOTAÇÃO NOS LIVROS “4-INDICADOR REAL”
+                      E “5-INDICADOR PESSOAL”</h5>
+                    <p>TÍTULOS EXTRAJUDICIAIS COM VALOR: Escritura ou contrato de compra e venda, compromisso ou promessa de
+                      compra e venda ou respectiva cessão; doação; dação em pagamento; hipoteca legal ou convencional; penhor
+                      resultante de debênture; locação; permuta; incorporação ou transferência de imóvel à pessoa jurídica;
+                      constituição de renda sobre imóvel; anticrese; e procuração em causa própria: cobrar sobre o valor
+                      da avaliação do imóvel para efeito de ITIV ou, senão incide este, aquela para os efeitos dos arts.
+                      818 e 1.484 do Código Civil e art. 871, I do Código de Processo Civil</p>
+                    <p-dataTable [value]="_allTables._table05BextraJudicial" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <p>Títulos Judiciais: Formal de partilha expedido em inventário, arrolamento, divórcio e separação judicial;
+                      carta de adjudicação, de arrematação e de sentença em usucapião; mandado de penhora, de arresto, de
+                      sequestro, de registro de hipotecas judiciárias (art. 495 do Código de Processo Civil) e de citação
+                      de ação real ou pessoal reipersecutória, cobrar sobre o valor da avaliação para efeito do ITIV ou,
+                      se não incidente este, aquela para os efeitos dos arts. 818 e 1.484 do Código Civil e art. 871, I do
+                      Código de Processo Civil</p>
+                    <p-dataTable [value]="_allTables._table05Bjudicial" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <h5 align="center">INCORPORAÇÃO OU DESTINAÇÃO, IDENTIFICAÇÃO E INDIVIDUALIZAÇÃO RESIDENCIAL (por área de construção)</h5>
+                    <p-dataTable [value]="_allTables._table05Bresidencial" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <h5 align="center">INCORPORAÇÃO OU DESTINAÇÃO, IDENTIFICAÇÃO E INDIVIDUALIZAÇÃO COMERCIAL (por área de construção)</h5>
+                    <p-dataTable [value]="_allTables._table05Bcomercial" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <h5 align="center">LOTEAMENTOS</h5>
+                    <p-dataTable [value]="_allTables._table05Bloteamento" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <h5 align="center">C – REGISTRO NO LIVRO “3 – AUXILIAR”, INCLUSIVE PROTOCOLO E PRENOTAÇÃO</h5>
+                    <p-dataTable [value]="_allTables._table05C" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <h5 align="center">D – AVERBAÇÕES</h5>
+                    <p-dataTable [value]="_allTables._table05D" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <h5 align="center">CONSTRUÇÃO RESIDENCIAL</h5>
+                    <h5 align="center">(por área construída, inclusive certidão)</h5>
+                    <p-dataTable [value]="_allTables._table05Dresidencial" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <h5 align="center">CONSTRUÇÃO COMERCIAL</h5>
+                    <h5 align="center">(por área construída, inclusive certidão)</h5>
+                    <p-dataTable [value]="_allTables._table05Dcomercial" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                    <h5 align="center">E – CERTIDÕES</h5>
+                    <p-dataTable [value]="_allTables._table05E" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                    <br>
+
+                  </p-accordionTab>
+
+                  <p-accordionTab header="TABELA VI - OFÍCIO DE NOTAS">
+                    <p>Escritura ou contrato de: compra e venda; compromisso ou promessa de compra e venda ou respectiva cessão,
+                      doação, dação em pagamento; financiamento; confissão de dívida, locação; permuta; incorporação ou transferência
+                      de imóvel à pessoa jurídica; e constituição de renda sobre imóvel, inclusive apontamentos, guias, primeiro
+                      traslado e arquivamento, cobrar sobre o valor da avaliação para efeito do ITIV ou, se não incidente
+                      este, aquela para os efeitos dos arts. 818 e 1.484 do Código Civil e art. 871, I do Código de Processo
+                      Civil
+                    </p>
+                    <p-dataTable [value]="_allTables._table06" [editable]="true" (change)="onCalculos()">
+                      <p-column field="Discriminacao" header="Discriminação" [editable]="false" [style]="{'width':'80%'}"></p-column>
+                      <p-column field="Quantidade" header="Quantidade" [editable]="true"></p-column>
+                    </p-dataTable>
+                  </p-accordionTab>
+
+                </p-accordion>
+
+                <br/>
+              </p-panel>
+            </div>
+          </div>
+          <div class='col-md-4'>
+            <div class="form-group">
+              <p-panel header="Resumo">
+                <div class="ui-grid-row">
+                  <div align="left" class='col-md-8'>
+                    <p>
+                      <strong>Discriminação</strong>
+                    </p>
+                  </div>
+                  <div align="right" class='col-md-4'>
+                    <p>
+                      <strong>Valor</strong>
+                    </p>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div align="left" class='col-md-8'>
+                    <p>PROTESTO DE TÍTULOS</p>
+                    <p>REGISTRO CIVIL DE PESSOAS NATURAIS</p>
+                    <p>REGISTRO CIVIL DAS PESSOAS JURÍDICAS</p>
+                    <p>TÍTULOS E DOCUMENTOS</p>
+                    <p>REGISTRO DE IMÓVEIS</p>
+                    <p>OFÍCIO DE NOTAS</p>
+                  </div>
+                  <div align="right" class='col-md-4'>
+                    <p>
+                      <strong>{{ totalTabela1 | currency: 'R$' }}</strong>
+                    </p>
+                    <p>
+                      <strong>{{ totalTabela2 | currency: 'R$' }}</strong>
+                    </p>
+                    <p>
+                      <strong>{{ totalTabela3 | currency: 'R$' }}</strong>
+                    </p>
+                    <p>
+                      <strong>{{ totalTabela4 | currency: 'R$' }}</strong>
+                    </p>
+                    <p>
+                      <strong>{{ totalTabela5 | currency: 'R$' }}</strong>
+                    </p>
+                    <p>
+                      <strong>{{ totalTabela6 | currency: 'R$' }}</strong>
+                    </p>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div align="left" class='col-md-8'>
+                    <h4>TOTAL</h4>
+                  </div>
+                  <div align="right" class='col-md-4'>
+                    <h4>{{TotalCalc | currency: 'R$' }}</h4>
+                  </div>
+                </div>
+              </p-panel>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-grid-row topo40">
+            <div class="ui-grid-col-4">
+          </div>
+          <div class="ui-grid-col-2 text-right">
+            <button pButton type="button" class="ui-button-danger" icon="fa-arrow-left" label="Voltar" (click)="onVoltar()"></button>
+          </div>
+          <div class="ui-grid-col-1">
+            </div>
+          <div class="ui-grid-col-2 text-right">
+            <button pButton type="submit" icon="fa-arrow-right" iconPos="right" label="Avançar" [disabled]="!formLancarServicos.valid"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+</form>

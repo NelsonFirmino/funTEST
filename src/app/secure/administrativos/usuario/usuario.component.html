@@ -1,0 +1,138 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard_graph">
+
+            <div class="row x_title">
+                <div class="col-md-6">
+                    <h3>Usuário</h3>
+                </div>
+                <div class="col-md-6 topofixo">
+                </div>
+            </div>
+            <p-growl [life]="5000" [(value)]="msgs"></p-growl>
+            <form #formUsuario="ngForm">
+
+                <div class="row topo30px">
+                    <div class="col-md-6" [class.has-error]="!txNome.valid && txNome.touched"
+                        [class.has-success]="txNome.valid && txNome.touched" maxlength="250">
+                        <label for="txNome">Nome:</label>
+                        <input type="text" id="txNome" #txNome="ngModel" [(ngModel)]="usuario.txNome"
+                            class="form-control" name="txNome" required />
+                        <div *ngIf="!txNome.valid && txNome.touched">
+                            O Nome é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-md-2" [class.has-error]="!txCPF.valid && txCPF.touched"
+                        [class.has-success]="txCPF.valid && txCPF.touched" maxlength="11">
+                        <label for="txCPF">CPF:(Sem mascara)</label>
+                        <input type="text" id="txCPF" class="form-control" #txCPF="ngModel" [(ngModel)]="usuario.txCPF"
+                            name="txCPF" maxlength="11" required />
+                        <div *ngIf="!txCPF.valid && txCPF.touched">
+                            O CPF é obrigatório.
+                        </div>
+                    </div>
+                </div>
+                <div class="row topo15px">
+                    <div class="col-md-6" [class.has-error]="!txEmail.valid && txEmail.touched"
+                        [class.has-success]="txEmail.valid && txEmail.touched" maxlength="300">
+                        <label for="txEmail">Email:</label>
+                        <input type="text" id="txEmail" #txEmail="ngModel" [(ngModel)]="usuario.txEmail"
+                            class="form-control" name="txEmail" required />
+                        <div *ngIf="!txEmail.valid && txEmail.touched">
+                            O Email é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="txTelefone">Telefone:</label>
+                        <input type="text" id="txTelefone" class="form-control" #txCRM="ngModel"
+                            [(ngModel)]="usuario.txTelefone" name="txTelefone" maxlength="20" required />
+                    </div>
+                </div>
+                <div class="row topo15px">
+                    <div class="col-md-4">
+                        <label for="txFuncao">Função:</label>
+
+                        <select name="txFuncao" class="form-control" #txFuncao="ngModel" [(ngModel)]="usuario.txFuncao">
+                            <option value="Cartorio">Cartório</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 ckbox">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="isAtivo" name="isNegativaEstadual" #isAtivo="ngModel"
+                                [(ngModel)]="usuario.isAtivo">Ativo
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="isEmailEnviado" name="isEmailEnviado" #isEmailEnviado="ngModel"
+                                [(ngModel)]="usuario.isEmailEnviado">E-mail Enviado
+                        </label>
+                    </div>
+                </div>
+                <div class="row topo15px">
+                    <div class="col-md-3" left10px *ngIf="isPossuiId(usuario.Id)">
+                        <button class="btn btn-primary" [disabled]="!formUsuario.valid"
+                            (click)="onAlterar()">Alterar</button>
+                        <button type="reset" class="btn btn-primary" (click)="onLimpar()"
+                            id="btnLimpar">Cancelar</button>
+                    </div>
+                    <div class="col-md-4" *ngIf="!isPossuiId(usuario.Id)">
+                        <button class="btn btn-primary" [disabled]="!formUsuario.valid"
+                            (click)="onIncluir()">Incluir</button>
+                        <button class="btn btn-primary" [disabled]="txNome.value == '' && txCPF.value == '' "
+                            (click)="onPesquisar()"><i class="fa fa-search"></i> Pesquisar</button>
+                        <button type="reset" class="btn btn-primary" (click)="onLimpar()"
+                            id="btnLimpar">Cancelar</button>
+                    </div>
+                </div>
+               
+            </form>
+
+            <div class="row topo15px">
+                <div class="col-md-8">
+                    <h3>Listagem</h3>
+
+                    <p-table [value]="listaTodos" [paginator]="true" [rows]="10">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th widht="60%">Nome</th>
+                                <th widht="20%">CPF</th>
+                                <th widht="10%">Telefone</th>
+                                <th widht="10%">Ações</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item let-columns="columns">
+                            <tr>
+                                <td widht="60%">{{ item.txNome }}</td>
+                                <td widht="20%">{{ item.txCPF }}</td>
+                                <td widht="10%">{{ item.txTelefone }}</td>
+                                <td widht="10%">
+                                    <a data-toggle="tooltip" data-placement="top" title="Editar"><i
+                                        class="fa fa-edit fa-2x" (click)="onEditar(item)"></i></a> 
+                                        &nbsp;&nbsp;
+                                    <a [routerLink]="['/administrativos/serventia-usuario']" 
+                                        [queryParams]="{idUsuario:item.Id}" >
+                                         <i class="fa fa-address-card fa-2x" title="Serventia"></i></a>
+                                </td>
+                            </tr>
+
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="4">
+                                    <p class="alert alert-info">Nenhum registro foi encontrado!</p>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
+                </div>
+            </div>
+
+
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+</div>
+<br />

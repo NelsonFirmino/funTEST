@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="dashboard_graph">
+
+      <div class="row x_title">
+        <div class="col-md-6">
+          <h3> Relatório de Arrecadação Anual</h3>
+        </div>
+        <div class="col-md-6 topofixo">
+        </div>
+      </div>
+
+      <br />
+
+      <div class="container">
+        <div class="row topo30px left15px">
+          <div class="col-md-4">
+            <label for="ano">Ano:</label>
+            <select id="nuAno" name="nuAno" class="form-control" [(ngModel)]="nuAno" required>
+              <option *ngFor="let item of lista" value="{{ item }}">{{ item }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row topo30px left15px">
+          <div class="col-md-4" left10px *ngIf="nuAno>2017">
+            <a href="#" class="btn" style="font-size: 14px" (click)="onImprimirTotal($event)">
+              <i class="fa fa-2x fa-print"></i>&nbsp;Imprimir todas as serventias</a>
+          </div>
+          <div class="row topo30px left15px"><br /><br /></div>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>

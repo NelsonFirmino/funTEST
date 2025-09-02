@@ -1,0 +1,51 @@
+
+  <div class="container">
+
+    <form id="ngForm" runat="server" class="form-signin" #formLogin="ngForm" (ngSubmit)="onSubmit(formLogin)">
+
+      <h2 class="form-signin-heading">
+        <img src="https://divida.pge.rn.gov.br/refis2018/img/logoverticalb.png" style="margin-bottom: 15px;" alt="Procuradoria Geral do Estado do RN">
+        <br />
+        <strong style="font-size: 25px;">FUNAF</strong>
+      </h2>
+
+      <!-- {{_resHttp | json}} -->
+
+      <div class="login-wrap">
+        
+        <div class="user-login-info">
+          <div class="alert alert-danger" role="alert" [hidden]="!loginFalhou()" >
+            {{mensagemErro()}}
+          </div>
+          <input type="text" placeholder="CPF (apenas numeros)" class="form-control validate" style="color: #666;" name="txUsuario" [(ngModel)]="usuario" #txUsuario="ngModel" (keydown)="setStatus(0)" required />
+          <input type="password" autocomplete="off" placeholder="Senha" class="form-control validate" style="color: #666;" name="txSenha" [(ngModel)]="senha" #txSenha="ngModel" (keydown)="setStatus(0)" required />
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-lg btn-login btn-block submit">
+            <i class="fa fa-lock"></i> Entrar</button>            
+        </div>        
+        <i style="font-size: 9px; text-align: center;">v1.0.4</i>
+        <!-- <a [routerLink]="['/processo']" class="btn btn-lg btn-login btn-block">Entrar</a> -->
+
+      </div>      
+
+      <div class="text-center" style="margin-top:10px;">
+  <a [routerLink]="['/resetar-senha']">Esqueci minha senha</a>
+</div>
+
+    </form>
+
+    <div class="container-fluid navbar-fixed-bottom" style="color: #FFF; text-decoration: none;">
+        <div class="row-fluid">
+          <div class="span12 rodape">
+            <address class="fonte11px centro" style="padding-top: 10px;">
+              Rua Militão Chaves, 1807 - Candelária - Natal/RN - CEP: 59064.440&nbsp;&nbsp;|&nbsp;&nbsp;
+              <a href="#" style="color: #5f5f5f !important;" target="_blank">http://www.pge.rn.gov.br</a> &nbsp;&nbsp;
+              <br /> <strong>CANAIS DE ATENDIMENTO:</strong> SUPORTE DI: (84) 3190-1648 / WHATSAPP PDA: (84) 99933-3753 &nbsp;&nbsp;|&nbsp;&nbsp; © 2009 - 2024. Todos os direitos reservados.
+            </address>
+          </div>
+        </div>
+      </div>
+
+  </div>

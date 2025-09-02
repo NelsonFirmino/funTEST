@@ -1,0 +1,91 @@
+
+<div class="container">
+    <div class="row">
+      <div class='col-md-12'>
+          <br>
+          <h1 class="bordacinza">Cartórios Cadastrados</h1>
+      </div>
+    </div>
+    <div class="row">
+        <p-dataView #dv [value]="cartorios" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="txComarca" [sortField]="sortField" [sortOrder]="sortOrder">
+            <p-header>
+                <div class="ui-helper-clearfix">
+                    <div class="ui-g">            
+                        <div class="ui-g-6 ui-md-10 filter-container">
+                            <div style="position:relative">
+                                <input type="search" pInputText size="50" placeholder="Pesquisar por comarca" (keyup)="dv.filter($event.target.value)">
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-2">
+                            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordernar Por" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </p-header>
+            <ng-template let-cartorio pTemplate="listItem">
+                <div class="ui-g" style="padding: 2em; border-bottom: 1px solid #d9d9d9">        
+                    <div class="ui-g-12 ui-md-8 car-details">
+                        <div class="ui-g">
+
+                            <div class="ui-g-2 ui-sm-6">Comarca: </div>
+                            <div class="ui-g-10 ui-sm-6"><b>{{cartorio.txComarca}}</b></div>    
+
+                            <div class="ui-g-2 ui-sm-6">Nome do Cartório: </div>
+                            <div class="ui-g-10 ui-sm-6"><b>{{cartorio.txCartorio}}</b></div>
+                            
+                            <div class="ui-g-2 ui-sm-6">Responsável: </div>
+                            <div class="ui-g-10 ui-sm-6"><b>{{cartorio.txResponsavel}}</b></div>
+
+                            <div class="ui-g-2 ui-sm-6">Telefone: </div>
+                            <div class="ui-g-10 ui-sm-6"><b>{{cartorio.txTelefone}}</b></div>
+
+                            <div class="ui-g-2 ui-sm-6">Email: </div>
+                            <div class="ui-g-10 ui-sm-6"><b>{{cartorio.txEmail}}</b></div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-1 search-icon">
+                        <button pButton type="button" icon="fa-search" (click)="selecionarCartorio($event, cartorio)"></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template let-cartorio pTemplate="gridItem">
+                <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                    <p-panel [header]="car.vin" [style]="{'text-align':'center'}">            
+                        <div class="car-detail">{{cartorio.txCartorio}} - {{cartorio.txResponsavel}}</div>
+                        <hr class="ui-widget-content" style="border-top:0">
+                        <button pButton type="button" icon="fa-search" (click)="selecionarCartorio($event, cartorio)" style="margin-top:0"></button>
+                    </p-panel>
+                </div>
+            </ng-template>
+        </p-dataView>
+    </div>
+</div>
+
+<p-dialog header="Informações do Cartório" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" (onAfterHide)="onDialogHide()">
+    <div class="ui-g" *ngIf="cartorioSelecionado">
+
+        <div class="ui-g-2 ui-sm-6">Comarca: </div>
+        <div class="ui-g-10 ui-sm-6"><b>{{cartorioSelecionado.txComarca}}</b></div>    
+
+        <div class="ui-g-2 ui-sm-6">Nome do Cartório: </div>
+        <div class="ui-g-10 ui-sm-6"><b>{{cartorioSelecionado.txCartorio}}</b></div>
+        
+        <div class="ui-g-2 ui-sm-6">Responsável: </div>
+        <div class="ui-g-10 ui-sm-6"><b>{{cartorioSelecionado.txResponsavel}}</b></div>
+        
+        <div class="ui-g-2 ui-sm-6">Endereço: </div>
+        <div class="ui-g-10 ui-sm-6"><b>{{cartorioSelecionado.txEndereco}}</b></div>
+        
+        <div class="ui-g-2 ui-sm-6">CEP: </div>
+        <div class="ui-g-10 ui-sm-6"><b>{{cartorioSelecionado.txCEP}}</b></div>
+
+        <div class="ui-g-2 ui-sm-6">Telefone: </div>
+        <div class="ui-g-10 ui-sm-6"><b>{{cartorioSelecionado.txTelefone}}</b></div>
+
+        <div class="ui-g-2 ui-sm-6">Email: </div>
+        <div class="ui-g-10 ui-sm-6"><b>{{cartorioSelecionado.txEmail}}</b></div>
+
+        <div class="ui-g-2 ui-sm-6">Serviços: </div>
+        <div class="ui-g-10 ui-sm-6"><b>{{cartorioSelecionado.txServicos}}</b></div>
+    </div>
+</p-dialog>

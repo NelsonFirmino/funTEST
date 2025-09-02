@@ -1,0 +1,54 @@
+<div class="container bgbranco">
+
+  <div class="row rowtopo">
+    <div class="col-md-12">
+        <h1 class="topo40"><i class="fa fa-search"></i>&nbsp;Download da Ficha de Cadastral</h1>
+    </div>
+  </div>
+
+  <div class="row topo40">
+    <div class="col-md-12">
+      <span class="buscar">Selecione abaixo a comarca da sua serventia</span>
+    </div>
+  </div>
+
+  <form #formRelatorio="ngForm">
+
+    <div class="row topo30">
+      <div class="col-md-12">
+        <p class="ft16px">Escolha a cidade</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+
+        <select name="comarcaSelecionada" id="comarcaSelecionada" (change)="onChangeComarca($event.target.value)" #comarcaSelecionada="ngModel" [(ngModel)]="comarcaSelecionada.Id" class="form-control">            
+            <option *ngFor="let item of comarcas" value="{{ item.Id }}">{{ item.txComarca }}</option>
+        </select>        
+        
+      </div>
+    </div>
+
+    <div class="row topo30">  
+      <div class="col-md-12">
+          <div *ngFor="let icartorio of cartorios">
+              <div *ngIf="icartorio.Id > 0">
+                  <a style="cursor: pointer;" (click)="onBaixarFicha(icartorio.Id)"><h4 class="h4dif">{{icartorio.txCartorio}}</h4></a>
+              <br />
+              </div>
+          </div>
+      </div>
+    </div>
+
+  </form>
+
+  <h4 style="text-align: justify; padding-left: 50px; padding-right: 50px;" >
+     A ficha deve ser preenchida com os dados pessoais do Titular da serventia e encaminhar, juntamente com cópia do RG do titular, à
+      Procuradoria Geral do Estado, via eletrônica. Para tanto, escanear a ficha e o RG e enviá-los para o e-mail
+      <strong>chefiapfda.pgern@gmail.com</strong> até o dia <strong>28 de março de 2018</strong>. Na hipótese de preenchimento por procurador com
+      poderes específicos, a procuração também deve ser escaneada e enviada por e-mail.    
+  </h4>
+
+</div>
+

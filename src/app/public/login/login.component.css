@@ -1,0 +1,10 @@
+@import url('https://divida.pge.rn.gov.br/refis2018/css/style.css');
+@import url('https://divida.pge.rn.gov.br/refis2018/css/style-responsive.css');
+
+.container {
+  width: 100%;
+}
+
+.body-public {
+  background: #2A3F54 !important;
+}

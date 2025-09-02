@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+        <div class='col-md-12'>
+            <br>
+            <h2 class="bordacinza">Declarações de Procedimentos e Serviços Efetuados (DPSE) enviadas</h2>
+        </div>
+    </div>
+    <div class="row">
+        <p-dataView #dv [value]="declaracoes" [paginator]="true" [rows]="10" paginatorPosition="both" [sortField]="sortField" [sortOrder]="sortOrder">
+            <ng-template let-declaracao pTemplate="listItem">
+                <div class="ui-g" style="padding: 2em; border-bottom: 1px solid #d9d9d9">
+                    <div class="ui-g-12 ui-md-8 car-details">
+                        <div class="ui-g">
+
+                            <div class="ui-g-1 ui-sm-6">Período: </div>
+                            <div class="ui-g-11 ui-sm-6">
+                                <b>{{declaracao.dtInicio}}</b>&nbsp;até&nbsp;
+                                <b>{{declaracao.dtFinal}}</b>
+                            </div>
+
+                            <div class="ui-g-5 ui-sm-6">Valor a ser recolhido ao FUNAF (R$): </div>
+                            <div class="ui-g-7 ui-sm-6">
+                                <b>{{declaracao.valor}}</b>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="ui-g-6 ui-md-2">
+                        <a href="#" class="btn" style="font-size: 14px" (click)="onImprimirDeclaracao($event, declaracao)">
+                            <i class="fa fa-2x fa-print"></i>&nbsp;Imprimir Declaração</a>
+                        <a href="#" *ngIf="!declaracao.isQuite"  class="btn" style="font-size: 14px" (click)="onEmitirGuiaDeclaracao($event, declaracao)">
+                            <i class="fa fa-2x fa-barcode"></i>&nbsp;Emitir guia de recolhimento</a>  
+                        <strong *ngIf="declaracao.isQuite" style="color: green; padding-left: 14px;">Pagamento Efetuado</strong>    
+                    </div>
+                </div>
+            </ng-template>
+        </p-dataView>
+    </div>
+</div>

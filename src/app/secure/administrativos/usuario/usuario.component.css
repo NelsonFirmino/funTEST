@@ -1,0 +1,25 @@
+.ckbox {
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.topo15px {
+    margin-top: 15px;
+}
+
+.left5px {
+    margin-left: 5px;
+}
+
+.left10px {
+    margin-left: 10px;
+    margin-right: 10px !important;
+}
+
+.left15px {
+    margin-left: 15px;
+}
+
+.topo30px {
+    margin-top: 30px;
+}

@@ -1,0 +1,54 @@
+<h3 class="bordacinza topo40">
+    Declaração de Isento dos Procedimentos e Serviços Efetuados (DPSE) <br>
+    art. 3° da Instrução Normativa n° 001/2018 – GPGE
+</h3>
+<br />
+<h2 class="text-center">Selecionar Período</h2>
+<br />
+
+<p-growl [life]="5000" [(value)]="msgs"></p-growl>
+
+<form [formGroup]="formSelecionarPeriodo" (ngSubmit)="onAvancar(formSelecionarPeriodo.value)">
+
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+      </div>
+      <div class="ui-grid-col-2">
+        Data Inicial
+        <p-calendar formControlName="datainicial" pInputText [locale]="br" (onSelect)="onValidarDatas()" [showIcon]="true" dateFormat="dd/mm/yy">
+        </p-calendar>
+      </div>
+      <div class="ui-grid-col-2">
+        Data Final
+        <p-calendar formControlName="datafinal" pInputText [locale]="br" (onSelect)="onValidarDatas()" [showIcon]="true" dateFormat="dd/mm/yy">
+        </p-calendar>
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+        <div class="ui-message ui-messages-error ui-corner-all" 
+        *ngIf="!formSelecionarPeriodo.controls['datainicial'].valid&&formSelecionarPeriodo.controls['datainicial'].dirty">
+          <i class="fa fa-close"></i>
+          selecione a data inicial
+        </div>
+      </div>
+      <div class="ui-grid-col-4">
+        <div class="ui-message ui-messages-error ui-corner-all" 
+        *ngIf="!formSelecionarPeriodo.controls['datafinal'].valid&&formSelecionarPeriodo.controls['datafinal'].dirty">
+          <i class="fa fa-close"></i>
+          selecione a data final
+        </div>
+      </div>
+    </div>    
+    <div class="ui-grid-row topo40">
+      <div class="ui-grid-col-4"></div>
+      <div class="ui-grid-col-6">
+        <button pButton type="submit" icon="fa-arrow-right" iconPos="right" label="Avançar" 
+        [disabled]="!formSelecionarPeriodo.valid"></button>
+      </div>
+      <div class="ui-grid-col-4"></div>
+    </div>    
+  </div>
+</form>
